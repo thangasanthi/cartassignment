@@ -1,0 +1,295 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+@import "./custommixin";
+@import "./customvariables";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  color: $mainBlack;
+  background: $mainWhite;
+  font-family: "Lato", sans-serif;
+}
+/* --------------- Navbar ---------------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  height: 60px;
+  width: 100%;
+  @include flex;
+  align-items: center;
+  background: rgb(231, 226, 221);
+  z-index: 1;
+  .navbar-center {
+    width: 100%;
+    max-width: 1170px;
+    margin: 0 auto;
+    @include flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+  }
+  .nav-icon {
+    font-size: 1.5rem;
+  }
+  .cart-btn {
+    position: relative;
+    cursor: pointer;
+  }
+  .cart-items {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: $primaryColor;
+    padding: 0 5px;
+    border-radius: 30%;
+    color: $mainWhite;
+  }
+}
+/* --------------- End of Navbar ---------------- */
+
+/* --------------- Hero ---------------- */
+.hero {
+  min-height: calc(100vh - 60px);
+  background: url("./images/hero-bcg.jpeg") center/cover no-repeat;
+  @include flex;
+  align-items: center;
+  justify-content: center;
+  .banner {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    display: inline-block;
+    padding: 2rem;
+  }
+  .banner-title {
+    font-size: 3.4rem;
+    text-transform: uppercase;
+    letter-spacing: $mainSpacing;
+    margin-bottom: 3rem;
+  }
+}
+/* --------------- End of Hero ---------------- */
+
+/* --------------- Products ---------------- */
+.products {
+  padding: 4rem 0;
+  .section-title h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 5rem;
+    text-transform: capitalize;
+    letter-spacing: $mainSpacing;
+  }
+  .products-center {
+    width: 90vw;
+    margin: 0 auto;
+    max-width: 1170px;
+    @include grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-column-gap: 1.5rem;
+    grid-row-gap: 2rem;
+  }
+  .img-container {
+    position: relative;
+    overflow: hidden;
+    &:hover .bag-btn {
+      transform: translateX(0);
+    }
+    &:hover .product-img {
+      opacity: 0.5;
+    }
+  }
+  .bag-btn {
+    background: transparent;
+    border: 1px solid $primaryColor;
+    padding: 0.5rem 0.75rem;
+    transition: $mainTransition;
+    cursor: pointer;
+    &:hover {
+      color: $mainWhite;
+      background: $primaryColor;
+    }
+  }
+  .fa-shopping-cart {
+    margin-right: 0.5rem;
+  }
+  .product-img {
+    display: block;
+    width: 100%;
+    height: 15rem;
+    transition: $mainTransition;
+  }
+  .product {
+    border: 1px solid $mainGrey;
+    padding: 10px 10px;
+    position: relative;
+    h3 {
+      text-transform: capitalize;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      letter-spacing: $mainSpacing;
+      text-align: center;
+    }
+    h4 {
+      margin-top: 0.7rem;
+      letter-spacing: $mainSpacing;
+      color: $primaryColor;
+      text-align: center;
+    }
+    .price {
+      display: flex;
+      margin-top: 0.7rem;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+  }
+  .price p:first-child {
+    text-decoration: line-through red;
+    left: 10px;
+  }
+  .discount {
+    position: absolute;
+    top: 7%;
+    width: 20%;
+    left: 0;
+    text-align: center;
+    background: $primaryColor;
+    border: none;
+    font-weight: bold;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.75rem;
+    letter-spacing: $mainSpacing;
+    transition: $mainTransition;
+    cursor: pointer;
+    color: $mainWhite;
+    border-radius: 0px 2px;
+  }
+}
+/* ---------------End of Products ---------------- */
+
+/* --------------- Cart ---------------- */
+.cart-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  transition: $mainTransition;
+  background: rgba(240, 157, 81, 0.5);
+  z-index: 2;
+  visibility: hidden;
+  .cart {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    z-index: 3;
+    background: rgb(231, 226, 221);
+    padding: 1.5rem;
+    transition: $mainTransition;
+    transform: translateX(100%);
+    h2 {
+      text-transform: capitalize;
+      text-align: center;
+      letter-spacing: $mainSpacing;
+      margin-bottom: 2rem;
+    }
+  }
+  .cart-amount {
+    @include grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    justify-content: space-between;
+    align-self: right;
+    font-weight: bold;
+    padding: 1rem;
+  }
+  .cart-total {
+    border: 1px solid $primaryColor;
+    padding: 1rem 0;
+    & + div {
+      margin-top: 40px;
+    }
+  }
+  .showCart {
+    transform: translateX(0);
+  }
+  .close-cart {
+    font-size: 1.7rem;
+    cursor: pointer;
+  }
+  @include screen-small;
+}
+.transparentBcg {
+  visibility: visible;
+}
+/*---------- Cart Item -------------------- */
+.cart-item {
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+  grid-column-gap: 1.5rem;
+  margin: 1.5rem 0;
+  padding: 15px;
+  img {
+    width: 75px;
+    height: 75px;
+  }
+  h4 {
+    font-size: 0.85rem;
+    text-transform: capitalize;
+    letter-spacing: $mainSpacing;
+  }
+  h5 {
+    margin: 0.5rem 0;
+    letter-spacing: $mainSpacing;
+  }
+  .item-amount {
+    text-align: center;
+  }
+  .remove-item {
+    color: grey;
+    cursor: pointer;
+    &:hover {
+      font-weight: bold;
+    }
+  }
+  .fa-chevron-up,
+  .fa-chevron-down {
+    color: $primaryColor;
+    cursor: pointer;
+  }
+}
+
+/*---------- End of Cart Item -------------------- */
+
+.cart-footer {
+  margin-top: 2rem;
+  letter-spacing: $mainSpacing;
+  text-align: center;
+  h3 {
+    text-transform: capitalize;
+    margin-bottom: 2rem;
+  }
+  .banner-btn {
+    padding: 0.8rem 3rem;
+    text-transform: uppercase;
+    letter-spacing: $mainSpacing;
+    font-size: 1rem;
+    background: $primaryColor;
+    color: $mainBlack;
+    border: 1px solid $primaryColor;
+    transition: $mainTransition;
+    cursor: pointer;
+    margin-top: 20px;
+    &:hover {
+      background: transparent;
+      color: $primaryColor;
+    }
+  }
+}
+/* --------------- End of Cart ---------------- */
